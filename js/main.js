@@ -72,9 +72,12 @@
   });
   form.elements.acepto.addEventListener("change", function () { setError("acepto", ""); });
 
-  function persist(data) {
-    /* Sin backend: guardamos localmente para no perder el lead.
-       Reemplazá este bloque por un POST a tu endpoint / CRM cuando esté listo. */
+  var submitBtn = document.getElementById("registro-submit");
+  var formError = document.getElementById("registro-form-error");
+
+  function persistLocal(data) {
+    /* Respaldo local para no perder el lead si HubSpot no está
+       configurado o si la red falla. */
     try {
       var key = "notai_leads";
       var leads = JSON.parse(localStorage.getItem(key) || "[]");
@@ -83,8 +86,94 @@
     } catch (e) { /* almacenamiento no disponible: seguimos igual */ }
   }
 
+  /* Configuración de HubSpot (js/config.js) */
+  function hubspotConfig() {
+    var cfg = (window.NOTAI_CONFIG && window.NOTAI_CONFIG.hubspot) || {};
+    if (!cfg.portalId || !cfg.formGuid) return null;
+    var host = cfg.region === "eu1" ? "api-eu1.hsforms.com" : "api.hsforms.com";
+    return "https://" + host + "/submissions/v3/integration/submit/" +
+      cfg.portalId + "/" + cfg.formGuid;
+  }
+
+  /* Divide "Nombre Apellido(s)" en firstname / lastname */
+  function splitName(fullName) {
+    var parts = fullName.trim().split(/\s+/);
+    var first = parts.shift() || fullName;
+    var last = parts.join(" ");
+    return { first: first, last: last };
+  }
+
+  /* Envía el registro a HubSpot como contacto (lead).
+     Devuelve una promesa que resuelve true/false. */
+  function submitToHubSpot(data) {
+    var endpoint = hubspotConfig();
+    if (!endpoint) return Promise.resolve(null); // HubSpot no configurado aún
+
+    var name = splitName(data.nombre);
+
+    /* Detalles extra que no tienen campo propio van al mensaje */
+    var extra = [];
+    if (data.equipo) extra.push("Tamaño del equipo: " + data.equipo);
+    if (data.interes) extra.push("Interés: " + data.interes);
+    var messageParts = [];
+    if (data.mensaje) messageParts.push(data.mensaje);
+    if (extra.length) messageParts.push(extra.join(" · "));
+    var message = messageParts.join("\n\n");
+
+    var fields = [
+      { name: "email", value: data.email },
+      { name: "firstname", value: name.first }
+    ];
+    if (name.last) fields.push({ name: "lastname", value: name.last });
+    if (data.empresa) fields.push({ name: "company", value: data.empresa });
+    if (data.cargo) fields.push({ name: "jobtitle", value: data.cargo });
+    if (data.telefono) fields.push({ name: "phone", value: data.telefono });
+    if (message) fields.push({ name: "message", value: message });
+
+    var payload = {
+      fields: fields,
+      context: {
+        pageUri: window.location.href,
+        pageName: document.title
+      }
+    };
+
+    return fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      return res.ok;
+    }).catch(function () {
+      return false;
+    });
+  }
+
+  function setSubmitting(on) {
+    if (!submitBtn) return;
+    submitBtn.disabled = on;
+    submitBtn.textContent = on ? "Enviando…" : "Solicitar acceso";
+  }
+
+  function showSuccess() {
+    form.hidden = true;
+    if (success) {
+      success.hidden = false;
+      success.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }
+
+  function showFormError() {
+    if (!formError) return;
+    formError.textContent =
+      "No pudimos enviar tu solicitud en este momento. Revisa tu conexión e inténtalo de nuevo.";
+    formError.hidden = false;
+  }
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+    if (formError) formError.hidden = true;
+
     if (!validate()) {
       var firstInvalid = form.querySelector(".invalid");
       if (firstInvalid) firstInvalid.focus();
@@ -103,14 +192,21 @@
       fecha: new Date().toISOString()
     };
 
-    persist(data);
+    /* Respaldo local siempre */
+    persistLocal(data);
 
-    /* Estado de éxito */
-    form.hidden = true;
-    if (success) {
-      success.hidden = false;
-      success.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
+    setSubmitting(true);
+    submitToHubSpot(data).then(function (result) {
+      setSubmitting(false);
+      // result === null → HubSpot no configurado (modo local): mostramos éxito.
+      // result === true → enviado a HubSpot: éxito.
+      // result === false → falló el envío: mostramos error y permitimos reintentar.
+      if (result === false) {
+        showFormError();
+      } else {
+        showSuccess();
+      }
+    });
   });
 
   if (resetBtn) {
@@ -118,6 +214,7 @@
       form.reset();
       form.hidden = false;
       if (success) success.hidden = true;
+      if (formError) formError.hidden = true;
       form.elements.nombre.focus();
     });
   }

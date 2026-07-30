@@ -392,6 +392,16 @@ a { color: inherit; text-decoration: none; }
 .field input.invalid,
 .field select.invalid { border-color: var(--pink); }
 .register__fineprint { margin: 4px 0 0; text-align: center; color: var(--ink-mute); font-size: .82rem; }
+.register__form-error {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(246,33,120,.10);
+  border: 1px solid rgba(246,33,120,.35);
+  color: var(--pink);
+  font-size: .88rem;
+}
+#registro-submit:disabled { opacity: .7; cursor: progress; }
 
 /* Success */
 .register__success {
