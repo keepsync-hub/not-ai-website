@@ -10,7 +10,8 @@
 
   /* ---------- Reveal on scroll ---------- */
   var revealTargets = document.querySelectorAll(
-    ".section__title, .section__lead, .chain, .compare, .cards, .verdi, .register, .hero__stats"
+    ".section__title, .section__lead, .chain, .compare, .cards, .verdi, .register, .hero__stats, " +
+    ".manifesto__lead, .manifesto__statement, .manifesto__tagline"
   );
   revealTargets.forEach(function (el) { el.setAttribute("data-reveal", ""); });
 
