@@ -33,7 +33,7 @@ window.NOTAI_CONFIG = {
     portalId: "51599870",
 
     // GUID del formulario de HubSpot. Pégalo aquí ↓
-    formGuid: "",
+    formGuid: "986c6383-00e9-485a-8c63-24cf12cc515e",
 
     // Región de datos de tu cuenta:
     //   "na1" → api.hsforms.com        (Norteamérica, por defecto)
