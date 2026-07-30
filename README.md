@@ -75,7 +75,7 @@ Pasos:
 | Email corporativo | `email` |
 | Empresa | `company` |
 | Teléfono | `phone` |
-| Cargo · Tamaño del equipo · Interés · Mensaje | `message` (combinados) |
+| Mensaje | `message` |
 
 > **Mientras `formGuid` esté vacío**, el formulario funciona en modo local
 > (solo `localStorage`) sin enviar nada a HubSpot, útil para previsualizar.

@@ -111,18 +111,6 @@
 
     var name = splitName(data.nombre);
 
-    /* Detalles extra que no tienen campo propio en el formulario de
-       HubSpot van al mensaje (HubSpot rechaza campos que no existan
-       en el formulario). */
-    var extra = [];
-    if (data.cargo) extra.push("Cargo: " + data.cargo);
-    if (data.equipo) extra.push("Tamaño del equipo: " + data.equipo);
-    if (data.interes) extra.push("Interés: " + data.interes);
-    var messageParts = [];
-    if (data.mensaje) messageParts.push(data.mensaje);
-    if (extra.length) messageParts.push(extra.join(" · "));
-    var message = messageParts.join("\n\n");
-
     var fields = [
       { name: "email", value: data.email },
       { name: "firstname", value: name.first }
@@ -130,7 +118,7 @@
     if (name.last) fields.push({ name: "lastname", value: name.last });
     if (data.empresa) fields.push({ name: "company", value: data.empresa });
     if (data.telefono) fields.push({ name: "phone", value: data.telefono });
-    if (message) fields.push({ name: "message", value: message });
+    if (data.mensaje) fields.push({ name: "message", value: data.mensaje });
 
     var payload = {
       fields: fields,
@@ -186,10 +174,7 @@
       nombre: form.elements.nombre.value.trim(),
       email: form.elements.email.value.trim(),
       empresa: form.elements.empresa.value.trim(),
-      cargo: form.elements.cargo.value.trim(),
       telefono: form.elements.telefono.value.trim(),
-      equipo: form.elements.equipo.value,
-      interes: form.elements.interes.value,
       mensaje: form.elements.mensaje.value.trim(),
       fecha: new Date().toISOString()
     };
