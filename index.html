@@ -3,21 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Not-AI · Reinventamos el sistema de trabajo</title>
-  <meta name="description" content="Not-AI le quita el trabajo administrativo a tu equipo. Lo mejor de tus plataformas — CRM, ERP, reportes — sin lo malo de operarlas. Regístrate para conocer la herramienta e implementarla en tu empresa." />
-  <meta name="theme-color" content="#0e0d13" />
+  <title>Not-AI · El NotCo del trabajo · Lo mejor de tus herramientas, sin lo malo de operarlas</title>
+  <meta name="description" content="Not-AI es el NotCo del trabajo. Verdi replica el trabajo administrativo —CRM, reportes y procesos internos— para que tu equipo vuelva a vender, crear y construir. Solicita acceso al programa de early adopters." />
+  <meta name="theme-color" content="#0b0a10" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Not-AI · Reinventamos el sistema de trabajo" />
-  <meta property="og:description" content="Sin trabajo administrativo, y para todos. Regístrate para llevar Not-AI a tu empresa." />
+  <meta property="og:title" content="Not-AI · El NotCo del trabajo" />
+  <meta property="og:description" content="Lo mejor de tus herramientas, sin lo malo de operarlas. Le hablas por chat y Verdi hace el trabajo administrativo por ti." />
   <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23c6f135'/><text x='16' y='23' font-family='sans-serif' font-size='20' font-weight='bold' text-anchor='middle' fill='%2310120a'>V</text></svg>" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <!-- ===== Announcement bar ===== -->
+  <a class="announce" href="#registro">
+    <span class="announce__dot" aria-hidden="true"></span>
+    Programa de <strong>early adopters</strong> abierto · cupos limitados
+    <span class="announce__cta">Solicitar acceso →</span>
+  </a>
+
   <!-- ===== Nav ===== -->
   <header class="nav" id="top">
     <div class="container nav__inner">
@@ -26,9 +36,9 @@
         <span class="brand__name">Not-<span class="accent-lime">AI</span></span>
       </a>
       <nav class="nav__links" aria-label="Navegación principal">
-        <a href="#problema">El problema</a>
+        <a href="#por-que">Por qué</a>
+        <a href="#como">Cómo funciona</a>
         <a href="#productos">Productos</a>
-        <a href="#verdi">Verdi</a>
         <a href="#registro" class="btn btn--sm btn--lime">Solicitar acceso</a>
       </nav>
     </div>
@@ -38,31 +48,68 @@
     <!-- ===== Hero ===== -->
     <section class="hero">
       <div class="hero__glow" aria-hidden="true"></div>
-      <div class="container hero__inner">
-        <p class="eyebrow">NotCo, pero para el trabajo · powered by Verdi</p>
-        <h1 class="hero__title">
-          Reinventamos el <span class="accent-lime">sistema de trabajo</span>.<br />
-          Sin trabajo administrativo, <span class="accent-pink">y para todos.</span>
-        </h1>
-        <p class="hero__lead">
-          Amamos el trabajo bien hecho. Not-AI le quita lo que no nos gusta —
-          el trabajo administrativo que desgasta y no nos hace mejores.
-          <strong>Verdi</strong> lo replica por ti.
-        </p>
-        <div class="hero__actions">
-          <a href="#registro" class="btn btn--lime btn--lg">Quiero implementarlo en mi empresa</a>
-          <a href="#productos" class="btn btn--ghost btn--lg">Ver cómo funciona</a>
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow">El NotCo del trabajo · powered by Verdi</p>
+          <h1 class="hero__title">
+            Lo mejor de tus herramientas.<br />
+            <span class="accent-lime">Sin lo malo de operarlas.</span>
+          </h1>
+          <p class="hero__lead">
+            Le hablas por chat, en tu idioma, y <strong>Verdi</strong> se encarga del CRM,
+            los reportes y los procesos internos. Tu equipo deja el trabajo administrativo
+            y vuelve a <strong>vender, crear y construir</strong>.
+          </p>
+          <div class="hero__actions">
+            <a href="#registro" class="btn btn--lime btn--lg">Quiero llevarlo a mi empresa</a>
+            <a href="#como" class="btn btn--ghost btn--lg">Ver cómo funciona</a>
+          </div>
+          <p class="hero__microtrust">
+            <span>✓ Cupos limitados</span>
+            <span>✓ Demo personalizada</span>
+            <span>✓ Sin compromiso</span>
+          </p>
         </div>
-        <ul class="hero__stats" aria-label="En síntesis">
-          <li><span class="stat__num accent-lime">0</span><span class="stat__label">formularios que llenar</span></li>
-          <li><span class="stat__num accent-pink">1</span><span class="stat__label">chat, en tu idioma</span></li>
-          <li><span class="stat__num">100%</span><span class="stat__label">del foco de vuelta en lo que amas</span></li>
-        </ul>
+
+        <!-- Chat mockup del producto -->
+        <div class="hero__visual" aria-hidden="true">
+          <div class="chat">
+            <div class="chat__bar">
+              <span class="chat__avatar">V</span>
+              <div>
+                <p class="chat__name">Verdi</p>
+                <p class="chat__status">en línea · tu asistente de trabajo</p>
+              </div>
+            </div>
+            <div class="chat__body">
+              <div class="bubble bubble--me">
+                Cerré la visita con Ricoh Chile. Mandan la orden de compra la próxima semana.
+              </div>
+              <div class="bubble bubble--verdi">
+                <span class="bubble__check">✓</span> Registré la actividad y actualicé la etapa del negocio en el CRM.
+              </div>
+              <div class="bubble bubble--verdi">
+                <span class="bubble__check">✓</span> Agendé el seguimiento para el lunes y tu reporte semanal ya lo incluye.
+              </div>
+              <div class="bubble bubble--me">
+                Sin llenar un solo formulario. 🙌
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Franja de valor rápida -->
+      <div class="container hero__facts">
+        <div class="fact"><span class="fact__k accent-lime">0</span><span class="fact__v">formularios que llenar</span></div>
+        <div class="fact"><span class="fact__k accent-pink">1</span><span class="fact__v">chat, en tu idioma</span></div>
+        <div class="fact"><span class="fact__k">3</span><span class="fact__v">productos: CRM, ERP y reportes</span></div>
+        <div class="fact"><span class="fact__k">100%</span><span class="fact__v">del foco en lo que amas</span></div>
       </div>
     </section>
 
     <!-- ===== Manifiesto / Hook ===== -->
-    <section class="section section--manifesto" id="manifiesto">
+    <section class="section section--manifesto" id="por-que">
       <div class="manifesto__glow" aria-hidden="true"></div>
       <div class="container manifesto">
         <p class="eyebrow">Por qué existe Not-AI</p>
@@ -80,6 +127,29 @@
           para enfocarnos en lograr que el trabajo se haga, y se haga bien.
         </p>
         <p class="manifesto__tagline">Menos ruido sobre la IA. <span class="accent-lime">Más trabajo bien hecho.</span></p>
+      </div>
+    </section>
+
+    <!-- ===== La analogía NotCo ===== -->
+    <section class="section section--alt">
+      <div class="container">
+        <p class="eyebrow">La misma idea que cambió la comida</p>
+        <h2 class="section__title">Amamos el resultado. Odiamos lo que cuesta llegar a él.</h2>
+        <div class="analogy">
+          <article class="analogy__card">
+            <span class="analogy__tag">🥑 NotCo</span>
+            <p>Amamos la comida. No queríamos cambiar lo que nos encanta de ella — solo hacerla
+              sin dañarnos a nosotros ni al planeta.</p>
+            <p class="analogy__who"><strong>Giuseppe</strong> replica productos animales con plantas.</p>
+          </article>
+          <div class="analogy__arrow" aria-hidden="true">→</div>
+          <article class="analogy__card analogy__card--accent">
+            <span class="analogy__tag accent-lime">⚡ Not-AI</span>
+            <p>Amamos el trabajo bien hecho. Queremos quitarle lo que no nos gusta — el trabajo
+              administrativo que desgasta y no nos hace mejores.</p>
+            <p class="analogy__who"><strong>Verdi</strong> replica el trabajo administrativo por ti.</p>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -123,8 +193,41 @@
       </div>
     </section>
 
+    <!-- ===== Cómo funciona ===== -->
+    <section class="section section--alt" id="como">
+      <div class="container">
+        <p class="eyebrow">Cómo funciona</p>
+        <h2 class="section__title">Del caos administrativo al trabajo hecho, en 3 pasos.</h2>
+        <p class="section__lead">
+          Not-AI no te pide cambiar de herramientas ni aprender un sistema nuevo.
+          Trabaja sobre lo que ya usas.
+        </p>
+
+        <div class="steps">
+          <article class="step">
+            <span class="step__num">01</span>
+            <h3>Conecta lo que ya usas</h3>
+            <p>Verdi se apoya en tus plataformas y reportes actuales. Nada que migrar,
+              nada que reemplazar.</p>
+          </article>
+          <article class="step">
+            <span class="step__num">02</span>
+            <h3>Háblale por chat</h3>
+            <p>En tu idioma, cuando quieras. Le cuentas lo que pasó y él entiende — sin
+              formularios ni campos que llenar.</p>
+          </article>
+          <article class="step">
+            <span class="step__num">03</span>
+            <h3>Verdi hace el resto</h3>
+            <p>Registra, reporta y ejecuta el trabajo interno por ti, cumpliendo con lo que
+              la empresa necesita.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== Comparación ===== -->
-    <section class="section section--alt" id="notcrm">
+    <section class="section" id="notcrm">
       <div class="container">
         <p class="eyebrow">Lo mejor de tu CRM</p>
         <h2 class="section__title">Sin lo malo de usar un CRM.</h2>
@@ -156,7 +259,7 @@
     </section>
 
     <!-- ===== Productos ===== -->
-    <section class="section" id="productos">
+    <section class="section section--alt" id="productos">
       <div class="container">
         <p class="eyebrow">Una familia de productos</p>
         <h2 class="section__title">Un producto por cada plataforma que te agota.</h2>
@@ -204,6 +307,15 @@
             Verdi hace el trabajo interno; las personas aprovechan su potencial en lo que de verdad les gusta.
           </p>
         </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA band ===== -->
+    <section class="cta-band">
+      <div class="container cta-band__inner">
+        <h2 class="cta-band__title">Reinventa el trabajo de tu equipo — <span class="accent-lime">una tarea a la vez.</span></h2>
+        <p class="cta-band__lead">Sin trabajo administrativo, y para todos. Empieza por sumar a tu empresa al programa.</p>
+        <a href="#registro" class="btn btn--lime btn--lg">Solicitar acceso ahora</a>
       </div>
     </section>
 

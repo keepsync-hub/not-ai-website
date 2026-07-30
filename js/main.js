@@ -10,8 +10,9 @@
 
   /* ---------- Reveal on scroll ---------- */
   var revealTargets = document.querySelectorAll(
-    ".section__title, .section__lead, .chain, .compare, .cards, .verdi, .register, .hero__stats, " +
-    ".manifesto__lead, .manifesto__statement, .manifesto__tagline"
+    ".section__title, .section__lead, .chain, .compare, .cards, .verdi, .register, " +
+    ".manifesto__lead, .manifesto__statement, .manifesto__tagline, " +
+    ".analogy, .steps, .hero__facts, .cta-band__inner"
   );
   revealTargets.forEach(function (el) { el.setAttribute("data-reveal", ""); });
 
@@ -185,8 +186,9 @@
 
   function showFormError(reason) {
     if (!formError) return;
-    var base = "No pudimos enviar tu solicitud en este momento. Revisa tu conexión e inténtalo de nuevo.";
-    formError.textContent = reason ? base + " (Detalle: " + reason + ")" : base;
+    if (reason) console.error("Detalle del envío a HubSpot:", reason);
+    formError.textContent =
+      "No pudimos enviar tu solicitud en este momento. Revisa tu conexión e inténtalo de nuevo.";
     formError.hidden = false;
     formError.scrollIntoView({ behavior: "smooth", block: "center" });
   }
