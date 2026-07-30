@@ -104,8 +104,24 @@
     return { first: first, last: last };
   }
 
+  /* Extrae un motivo legible de la respuesta de error de HubSpot */
+  function parseHubSpotReason(body) {
+    try {
+      var j = JSON.parse(body);
+      if (j.errors && j.errors.length) {
+        return j.errors.map(function (e) { return e.message || e.errorType; }).join("; ");
+      }
+      return j.message || "";
+    } catch (e) {
+      return (body || "").slice(0, 200);
+    }
+  }
+
   /* Envía el registro a HubSpot como contacto (lead).
-     Devuelve una promesa que resuelve true/false. */
+     Resuelve:
+       null                      → HubSpot no configurado (modo local)
+       { ok: true }              → creado/actualizado en HubSpot
+       { ok: false, reason }     → HubSpot rechazó / falló la red */
   function submitToHubSpot(data) {
     var endpoint = hubspotConfig();
     if (!endpoint) return Promise.resolve(null); // HubSpot no configurado aún
@@ -129,14 +145,27 @@
       }
     };
 
+    /* Timeout defensivo: nunca dejamos el botón colgado en "Enviando…" */
+    var controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, 15000) : null;
+
     return fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
+      signal: controller ? controller.signal : undefined
     }).then(function (res) {
-      return res.ok;
-    }).catch(function () {
-      return false;
+      if (timer) clearTimeout(timer);
+      if (res.ok) return { ok: true };
+      return res.text().then(function (body) {
+        console.error("HubSpot rechazó el envío:", res.status, body);
+        return { ok: false, reason: parseHubSpotReason(body) || ("HTTP " + res.status) };
+      });
+    }).catch(function (err) {
+      if (timer) clearTimeout(timer);
+      console.error("Error de red al enviar a HubSpot:", err);
+      var reason = err && err.name === "AbortError" ? "tiempo de espera agotado" : "sin conexión";
+      return { ok: false, reason: reason };
     });
   }
 
@@ -154,11 +183,12 @@
     }
   }
 
-  function showFormError() {
+  function showFormError(reason) {
     if (!formError) return;
-    formError.textContent =
-      "No pudimos enviar tu solicitud en este momento. Revisa tu conexión e inténtalo de nuevo.";
+    var base = "No pudimos enviar tu solicitud en este momento. Revisa tu conexión e inténtalo de nuevo.";
+    formError.textContent = reason ? base + " (Detalle: " + reason + ")" : base;
     formError.hidden = false;
+    formError.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
   form.addEventListener("submit", function (e) {
@@ -186,11 +216,11 @@
     setSubmitting(true);
     submitToHubSpot(data).then(function (result) {
       setSubmitting(false);
-      // result === null → HubSpot no configurado (modo local): mostramos éxito.
-      // result === true → enviado a HubSpot: éxito.
-      // result === false → falló el envío: mostramos error y permitimos reintentar.
-      if (result === false) {
-        showFormError();
+      // result === null      → HubSpot no configurado (modo local): éxito.
+      // result.ok === true   → creado/actualizado en HubSpot: éxito.
+      // result.ok === false  → HubSpot rechazó / falló la red: error + reintento.
+      if (result && result.ok === false) {
+        showFormError(result.reason);
       } else {
         showSuccess();
       }
