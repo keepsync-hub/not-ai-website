@@ -60,7 +60,8 @@ Pasos:
 1. En HubSpot: **Marketing → Formularios → Crear formulario**.
 2. Agrega los campos (nombre interno de la propiedad de contacto):
    `email` *(obligatorio)*, `firstname`, `lastname`, `company`,
-   `jobtitle`, `phone`, `message`.
+   `phone`, `message`. HubSpot rechaza cualquier campo que **no** esté
+   en el formulario, así que el envío manda solo estos.
 3. *(Opcional)* Fija la etapa del ciclo de vida del formulario en **"Lead"**.
 4. Publica y copia el **Form GUID**
    (`xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`).
@@ -73,9 +74,8 @@ Pasos:
 | Nombre completo | `firstname` + `lastname` (se divide por el primer espacio) |
 | Email corporativo | `email` |
 | Empresa | `company` |
-| Cargo | `jobtitle` |
 | Teléfono | `phone` |
-| Tamaño del equipo · Interés · Mensaje | `message` (combinados) |
+| Cargo · Tamaño del equipo · Interés · Mensaje | `message` (combinados) |
 
 > **Mientras `formGuid` esté vacío**, el formulario funciona en modo local
 > (solo `localStorage`) sin enviar nada a HubSpot, útil para previsualizar.

@@ -111,8 +111,11 @@
 
     var name = splitName(data.nombre);
 
-    /* Detalles extra que no tienen campo propio van al mensaje */
+    /* Detalles extra que no tienen campo propio en el formulario de
+       HubSpot van al mensaje (HubSpot rechaza campos que no existan
+       en el formulario). */
     var extra = [];
+    if (data.cargo) extra.push("Cargo: " + data.cargo);
     if (data.equipo) extra.push("Tamaño del equipo: " + data.equipo);
     if (data.interes) extra.push("Interés: " + data.interes);
     var messageParts = [];
@@ -126,7 +129,6 @@
     ];
     if (name.last) fields.push({ name: "lastname", value: name.last });
     if (data.empresa) fields.push({ name: "company", value: data.empresa });
-    if (data.cargo) fields.push({ name: "jobtitle", value: data.cargo });
     if (data.telefono) fields.push({ name: "phone", value: data.telefono });
     if (message) fields.push({ name: "message", value: message });
 

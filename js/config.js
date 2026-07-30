@@ -13,9 +13,12 @@
         - firstname    (First Name)
         - lastname     (Last Name)
         - company      (Company Name)
-        - jobtitle     (Job Title)
         - phone        (Phone Number)
         - message      (Message)
+      NOTA: HubSpot rechaza cualquier campo que no exista en el
+      formulario. El envío manda solo estos campos; los datos sin
+      campo propio (cargo, tamaño de equipo, interés) se agregan
+      dentro de "message".
    3. (Opcional) En las opciones del formulario, fija la
       etapa del ciclo de vida en "Lead" para que los contactos
       entren como leads automáticamente.
