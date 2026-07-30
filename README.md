@@ -25,7 +25,7 @@ js/main.js      Validación del formulario, estado de éxito y animaciones.
 
 ## Cómo verla
 
-Es un sitio estático. Abrí `index.html` en el navegador, o serví la carpeta:
+Es un sitio estático. Abre `index.html` en el navegador, o sirve la carpeta:
 
 ```bash
 python3 -m http.server 8000
@@ -38,5 +38,5 @@ Los campos obligatorios (nombre, email, empresa y aceptación de contacto)
 se validan en el cliente. Al enviar, los datos se guardan en
 `localStorage` bajo la clave `notai_leads` como respaldo temporal.
 
-> **Para producción:** reemplazá el bloque `persist()` en `js/main.js` por un
+> **Para producción:** reemplaza el bloque `persist()` en `js/main.js` por un
 > `POST` a tu endpoint / CRM (por ejemplo HubSpot) para persistir los leads.

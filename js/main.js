@@ -49,14 +49,14 @@
     var ok = true;
     var f = form.elements;
 
-    if (!f.nombre.value.trim()) { setError("nombre", "Ingresá tu nombre."); ok = false; }
+    if (!f.nombre.value.trim()) { setError("nombre", "Ingresa tu nombre."); ok = false; }
     else setError("nombre", "");
 
-    if (!f.email.value.trim()) { setError("email", "Ingresá tu email."); ok = false; }
-    else if (!EMAIL_RE.test(f.email.value.trim())) { setError("email", "Revisá el formato del email."); ok = false; }
+    if (!f.email.value.trim()) { setError("email", "Ingresa tu email."); ok = false; }
+    else if (!EMAIL_RE.test(f.email.value.trim())) { setError("email", "Revisa el formato del email."); ok = false; }
     else setError("email", "");
 
-    if (!f.empresa.value.trim()) { setError("empresa", "Ingresá el nombre de tu empresa."); ok = false; }
+    if (!f.empresa.value.trim()) { setError("empresa", "Ingresa el nombre de tu empresa."); ok = false; }
     else setError("empresa", "");
 
     if (!f.acepto.checked) { setError("acepto", "Necesitamos tu autorización para contactarte."); ok = false; }
